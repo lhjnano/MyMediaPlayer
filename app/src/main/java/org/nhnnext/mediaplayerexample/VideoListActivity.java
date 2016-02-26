@@ -1,6 +1,7 @@
 package org.nhnnext.mediaplayerexample;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -54,12 +55,20 @@ public class VideoListActivity extends AppCompatActivity {
                 String[] item = (String[]) listAdapter.getItem(position);
                 String uuid = item[0];
 
-                // MEDIA PLAY
+                // MEDIA PLAY   - 내장 동영상 재생기를 통한 통영상 스트리밍
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse(item[2]);
+                intent.setDataAndType(uri,"video/*");
+                startActivity(intent);
+
+                // custom video
+                /*
                 Intent intent = new Intent(getApplicationContext(), MediaPlayerActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("uuid", uuid);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                */
             }
         });
 

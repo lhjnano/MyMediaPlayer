@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ListAdapter extends BaseAdapter {
 
-    // // uuid, filename, filepath
+    //  uuid, filename, filepath
     ArrayList<String[]> list = new ArrayList<String[]>();
     Activity activity = null;
     public ListAdapter(Activity activity){
@@ -123,6 +123,15 @@ public class ListAdapter extends BaseAdapter {
                             return drawable;
                         }
                     };
+                    // 스레드 실행전 값이 유효한지 확인
+                    if(item == null) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setTitle("제목이 유효하지 않습니다.");
+                        builder.setNegativeButton("닫기",null);
+                        builder.create().show();
+                        return;
+                    }
+
                     // 스레드 실행
                     asyncTask.execute(item);
                     Drawable drawable = asyncTask.get();
